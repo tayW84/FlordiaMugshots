@@ -4,9 +4,9 @@ import os
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # Source data and trained model live in the sibling FlordiaMugshots directory.
-DATA_ROOT = os.path.abspath(os.path.join(PROJECT_ROOT, '..', 'FlordiaMugshots'))
+DATA_ROOT = os.path.abspath(os.path.join(PROJECT_ROOT, '..', 'FlordiaMugshots_refactored'))
 
-CLASS_NAMES = ['Jefferson', 'Midlands', 'Orange']
+CLASS_NAMES = ['Boward', 'Jefferson', 'Midlands', 'Orange', 'Polk', 'Seminole']
 IMG_SIZE = (224, 224)
 
 # Softmax probability below this → image reported as "uncategorized".

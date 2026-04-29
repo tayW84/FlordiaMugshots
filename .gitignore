@@ -23,13 +23,19 @@ __pycache__/
 
 # Image datasets
 PythonProject/FlordiaMugshots/
+PythonProject/FlordiaMugshots.zip
 PythonProject/FlordiaMugshots_refactored/Orange/
 PythonProject/FlordiaMugshots_refactored/Jefferson/
 PythonProject/FlordiaMugshots_refactored/Midlands/
+PythonProject/FlordiaMugshots_refactored/Polk/
+PythonProject/FlordiaMugshots_refactored/Boward/
+PythonProject/FlordiaMugshots_refactored/Seminole/
+PythonProject/FlordiaMugshots_refactored/PalmBeach/
 PythonProject/FlordiaMugshots_refactored/TrainingData/
 PythonProject/FlordiaMugshots_refactored/TestData/
 PythonProject/FlordiaMugshots_refactored/wrongPredictions/
 PythonProject/FlordiaMugshots_refactored/saliency_maps/
+PythonProject/FlordiaMugshots_refactored/Results/
 
 # PDFs
 *.pdf
@@ -37,6 +43,11 @@ PythonProject/FlordiaMugshots_refactored/saliency_maps/
 # Other projects / sensitive files
 RCE/
 backup/
+ReadPDF/
+Resume/
+
+# Claude Code internals
+**/.claude/
 
 # OS
 .DS_Store

@@ -2,9 +2,8 @@
 """Split county images 80/20 into TrainingData/ and TestData/.
 
 Source folders (inside this project):
-  Orange/     -> TrainingData/Orange/    and TestData/Orange/
-  Jefferson/  -> TrainingData/Jefferson/ and TestData/Jefferson/
-  Midlands/   -> TrainingData/Midlands/  and TestData/Midlands/
+  Orange, Jefferson, Midlands, Polk, Boward, Seminole
+  All images copied flat into TrainingData/ and TestData/ (no subfolders).
 
 Images are copied (originals untouched). Re-running is safe: existing
 copies are skipped so the train/test split never changes.
@@ -23,6 +22,9 @@ SOURCES = {
     'Orange':    os.path.join(PROJECT_ROOT, 'Orange'),
     'Jefferson': os.path.join(PROJECT_ROOT, 'Jefferson'),
     'Midlands':  os.path.join(PROJECT_ROOT, 'Midlands'),
+    'Polk':      os.path.join(PROJECT_ROOT, 'Polk'),
+    'Boward':    os.path.join(PROJECT_ROOT, 'Boward'),
+    'Seminole':  os.path.join(PROJECT_ROOT, 'Seminole'),
 }
 
 TRAIN_DIR = os.path.join(PROJECT_ROOT, 'TrainingData')

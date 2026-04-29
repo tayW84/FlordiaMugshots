@@ -75,7 +75,7 @@ def plot_training_history(history, output_path):
 
 
 def main():
-    epochs = 25
+    epochs = 16
     batch_size = 32
     history_path = os.path.join(os.path.dirname(MODEL_PATH), 'training_history.png')
 
