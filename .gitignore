@@ -1,0 +1,43 @@
+# Virtual environments
+tf_env/
+Scripts/
+venv/
+.venv/
+pyvenv.cfg
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Model files (too large for git)
+*.keras
+*.h5
+*.pb
+
+# Image datasets
+PythonProject/FlordiaMugshots/
+PythonProject/FlordiaMugshots_refactored/Orange/
+PythonProject/FlordiaMugshots_refactored/Jefferson/
+PythonProject/FlordiaMugshots_refactored/Midlands/
+PythonProject/FlordiaMugshots_refactored/TrainingData/
+PythonProject/FlordiaMugshots_refactored/TestData/
+PythonProject/FlordiaMugshots_refactored/wrongPredictions/
+PythonProject/FlordiaMugshots_refactored/saliency_maps/
+
+# PDFs
+*.pdf
+
+# Other projects / sensitive files
+RCE/
+backup/
+
+# OS
+.DS_Store
+Thumbs.db
