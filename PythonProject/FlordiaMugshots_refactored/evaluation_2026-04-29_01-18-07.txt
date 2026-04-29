@@ -1,0 +1,93 @@
+================================================================
+MUGSHOT CLASSIFIER - EVALUATION REPORT
+Date      : 2026-04-29 01:18:07
+Folder    : .\TestData\
+Threshold : 60%
+================================================================
+
+SUMMARY
+  Images evaluated       : 1634
+  Categorized            : 1614
+  Uncategorized (< 60%) : 20
+  Correct predictions    : 1583
+  Incorrect predictions  : 31
+  Accuracy               : 98.08%
+
+MATTHEWS CORRELATION COEFFICIENT (per class)
+  Boward      : 0.9875
+  Jefferson   : 0.9790
+  Midlands    : 0.9545
+  Orange      : 0.9358
+  Polk        : 0.9817
+  Seminole    : 0.9864
+
+CLASSIFICATION REPORT
+              precision    recall  f1-score   support
+
+      Boward     0.9957    0.9830    0.9893       235
+   Jefferson     0.9813    0.9905    0.9859       529
+    Midlands     0.9545    0.9618    0.9582       131
+      Orange     0.9481    0.9343    0.9412       137
+        Polk     0.9885    0.9809    0.9847       262
+    Seminole     0.9875    0.9906    0.9891       320
+
+    accuracy                         0.9808      1614
+   macro avg     0.9759    0.9735    0.9747      1614
+weighted avg     0.9808    0.9808    0.9808      1614
+
+MISMATCHES (31)
+
+  Boward_image_207.jpg | True: Boward | Predicted: Jefferson (99.9%)
+  Boward_image_507.jpg | True: Boward | Predicted: Seminole (70.7%)
+  Boward_image_788.jpg | True: Boward | Predicted: Orange (86.1%)
+  Boward_image_913.jpg | True: Boward | Predicted: Jefferson (95.1%)
+  JEFFERSON_12Y0B47J_type_Full.jpg | True: Jefferson | Predicted: Orange (61.3%)
+  JEFFERSON_12Y25X14_type_Full.jpg | True: Jefferson | Predicted: Seminole (80.4%)
+  JEFFERSON_12Y2723D_type_Full.jpg | True: Jefferson | Predicted: Orange (90.7%)
+  JEFFERSON_12Y28EN6_type_Full.jpg | True: Jefferson | Predicted: Midlands (96.8%)
+  JEFFERSON_12Y2BHYV_type_Full.jpg | True: Jefferson | Predicted: Orange (88.2%)
+  MIDLANDS_mccloud-chiquita-kavon.jpg | True: Midlands | Predicted: Jefferson (90.5%)
+  MIDLANDS_nix-joshua-dean-150x150.jpg | True: Midlands | Predicted: Polk (85.5%)
+  MIDLANDS_walker-channing-jermey.jpg | True: Midlands | Predicted: Boward (94.2%)
+  MIDLANDS_williams-daniel-thomas-150x150.jpg | True: Midlands | Predicted: Polk (65.1%)
+  MIDLANDS_yahya-adam-fahad-150x150.jpg | True: Midlands | Predicted: Polk (61.9%)
+  ORANGE_ALBINO__ANDREW__M.png | True: Orange | Predicted: Jefferson (92.6%)
+  ORANGE_BAIHAT__TABATHA_QUINN.png | True: Orange | Predicted: Seminole (83.4%)
+  ORANGE_BAKER__MARCUS_JONATHAN.png | True: Orange | Predicted: Jefferson (89.7%)
+  ORANGE_BOND__JOSEPH_JUNIOR.png | True: Orange | Predicted: Jefferson (99.9%)
+  ORANGE_KENON__ERIC_MAURICE.png | True: Orange | Predicted: Jefferson (82.9%)
+  ORANGE_KEYS__CHESTER.png | True: Orange | Predicted: Midlands (92.8%)
+  ORANGE_SLOAN__TRAVIS_SHANTAY.png | True: Orange | Predicted: Jefferson (75.4%)
+  ORANGE_TAYLOR__RIDGE_EARON.png | True: Orange | Predicted: Midlands (61.5%)
+  ORANGE_TUCKER__MONAE_SHAQUEL.png | True: Orange | Predicted: Jefferson (84.1%)
+  Polk_image_1205.jpg | True: Polk | Predicted: Jefferson (83.5%)
+  Polk_image_532.jpg | True: Polk | Predicted: Midlands (69.7%)
+  Polk_image_604.jpg | True: Polk | Predicted: Midlands (73.0%)
+  Polk_image_893.jpg | True: Polk | Predicted: Midlands (63.5%)
+  Polk_image_934.jpg | True: Polk | Predicted: Seminole (98.0%)
+  Seminole_image_1581.jpg | True: Seminole | Predicted: Orange (66.4%)
+  Seminole_image_1597.jpg | True: Seminole | Predicted: Orange (60.6%)
+  Seminole_image_1598.jpg | True: Seminole | Predicted: Orange (64.0%)
+
+UNCATEGORIZED - below 60% threshold (20)
+
+  Boward_image_1028.jpg | Best guess: Jefferson (57.5%) - below threshold
+  Boward_image_1083.jpg | Best guess: Boward (40.0%) - below threshold
+  Boward_image_7.jpg | Best guess: Boward (55.9%) - below threshold
+  Boward_image_925.jpg | Best guess: Boward (56.1%) - below threshold
+  JEFFERSON_12Y1KPAU_type_Full.jpg | Best guess: Orange (58.1%) - below threshold
+  JEFFERSON_12Y1QF1D_type_Full.jpg | Best guess: Orange (53.3%) - below threshold
+  JEFFERSON_12Y1U7G4_type_Full.jpg | Best guess: Orange (58.7%) - below threshold
+  JEFFERSON_12Y2C1WO_type_Full.jpg | Best guess: Orange (54.5%) - below threshold
+  JEFFERSON_12Y2C2SW_type_Full.jpg | Best guess: Jefferson (57.4%) - below threshold
+  MIDLANDS_murphy-kenneth-wayne-150x150.jpg | Best guess: Midlands (56.1%) - below threshold
+  MIDLANDS_rauch-joshua-tyre.jpg | Best guess: Seminole (54.1%) - below threshold
+  ORANGE_AKSELL__ANNE_MARIE.png | Best guess: Orange (56.3%) - below threshold
+  ORANGE_BAKER__LORENIZA.png | Best guess: Orange (47.9%) - below threshold
+  Polk_image_1171.jpg | Best guess: Orange (48.4%) - below threshold
+  Polk_image_458.jpg | Best guess: Boward (47.4%) - below threshold
+  Polk_image_814.jpg | Best guess: Jefferson (40.6%) - below threshold
+  Polk_image_864.jpg | Best guess: Seminole (52.5%) - below threshold
+  Seminole_image_1458.jpg | Best guess: Jefferson (42.0%) - below threshold
+  Seminole_image_1489.jpg | Best guess: Polk (28.9%) - below threshold
+  Seminole_image_1608.jpg | Best guess: Orange (56.1%) - below threshold
