@@ -22,20 +22,26 @@ __pycache__/
 *.pb
 
 # Image datasets
-PythonProject/FlordiaMugshots/
-PythonProject/FlordiaMugshots.zip
-PythonProject/FlordiaMugshots_refactored/Orange/
-PythonProject/FlordiaMugshots_refactored/Jefferson/
-PythonProject/FlordiaMugshots_refactored/Midlands/
-PythonProject/FlordiaMugshots_refactored/Polk/
-PythonProject/FlordiaMugshots_refactored/Boward/
-PythonProject/FlordiaMugshots_refactored/Seminole/
-PythonProject/FlordiaMugshots_refactored/PalmBeach/
-PythonProject/FlordiaMugshots_refactored/TrainingData/
-PythonProject/FlordiaMugshots_refactored/TestData/
-PythonProject/FlordiaMugshots_refactored/wrongPredictions/
-PythonProject/FlordiaMugshots_refactored/saliency_maps/
-PythonProject/FlordiaMugshots_refactored/Results/
+FlordiaMugshots/
+FlordiaMugshots.zip
+Orange/
+Jefferson/
+Midlands/
+Polk/
+Boward/
+Seminole/
+PalmBeach/
+TrainingData/
+TestData/
+wrongPredictions/
+saliency_maps/
+Results/
+
+# Python packaging
+*.egg-info/
+dist/
+build/
+.env
 
 # PDFs
 *.pdf
