@@ -8,6 +8,7 @@ Examples:
     python download.py --county orange --mode all --workers 4
 """
 import argparse
+import os
 from config import IMAGES_DIR, NEW_IMAGES_DIR
 
 COUNTIES = ('jefferson', 'midlands', 'orange', 'all')
