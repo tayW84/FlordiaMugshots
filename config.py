@@ -1,10 +1,7 @@
 import os
 
-# Directory containing this file (FlordiaMugshots_refactored/).
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-
-# Source data and trained model live in the sibling FlordiaMugshots directory.
-DATA_ROOT = os.path.abspath(os.path.join(PROJECT_ROOT, '..', 'FlordiaMugshots_refactored'))
+DATA_ROOT = PROJECT_ROOT
 
 CLASS_NAMES = ['Boward', 'Jefferson', 'Midlands', 'Orange', 'Polk', 'Seminole']
 IMG_SIZE = (224, 224)
@@ -15,11 +12,11 @@ IMG_SIZE = (224, 224)
 CONFIDENCE_THRESHOLD = 0.60
 
 # Input paths (data / model)
-MODEL_PATH      = os.path.join(DATA_ROOT, 'mugshot_classifier4.keras')
+MODEL_PATH      = os.path.join(DATA_ROOT, 'mugshot_classifier.keras')
 TRAINING_DIR    = os.path.join(PROJECT_ROOT, 'TrainingData')
 TEST_DIR        = os.path.join(PROJECT_ROOT, 'TestData')
-NEW_IMAGES_DIR  = os.path.join(DATA_ROOT, 'newImages')
-BLANK_SLATE_DIR = os.path.join(DATA_ROOT, 'BlankSlate')
+NEW_IMAGES_DIR  = os.path.join(DATA_ROOT, 'TestData')
+IMAGES_DIR      = os.path.join(PROJECT_ROOT, 'Images')
 LOCAL_PDF_PATH  = os.path.join(DATA_ROOT, 'new-bookings.pdf')
 
 # Output paths (reports, saliency maps, misclassified images) — all written

@@ -1,7 +1,7 @@
 """Sort images from BlankSlate into county subfolders based on filename prefix."""
 import os
 import shutil
-from config import BLANK_SLATE_DIR, DATA_ROOT
+from config import IMAGES_DIR, DATA_ROOT
 
 PREFIX_TO_FOLDER = {
     "ORANGE_":    os.path.join(DATA_ROOT, "ORANGE"),
@@ -10,7 +10,7 @@ PREFIX_TO_FOLDER = {
 }
 
 
-def label_images(source_dir=BLANK_SLATE_DIR):
+def label_images(source_dir=IMAGES_DIR):
     for filename in os.listdir(source_dir):
         for prefix, folder in PREFIX_TO_FOLDER.items():
             if filename.startswith(prefix):

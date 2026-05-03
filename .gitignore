@@ -1,8 +1,7 @@
 # Virtual environments
-tf_env/
-Scripts/
 venv/
 .venv/
+tf_env/
 pyvenv.cfg
 
 # Python cache
@@ -21,9 +20,17 @@ __pycache__/
 *.h5
 *.pb
 
-# Image datasets
-FlordiaMugshots/
-FlordiaMugshots.zip
+# Image files — catch-all so no images can sneak in anywhere
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.webp
+
+# Image dataset folders
+Images/*
+!Images/.gitkeep
 Orange/
 Jefferson/
 Midlands/
@@ -37,20 +44,24 @@ wrongPredictions/
 saliency_maps/
 Results/
 
-# Python packaging
+# Facebook scraper URL dump files
+Polk.txt
+Boward.txt
+Seminole.txt
+PalmBeach.txt
+
+# Scraper download manifests (track what has been downloaded locally)
+manifest_*.json
+
+# Archives and generated data
+*.zip
+*.pdf
+
+# Python packaging / env
 *.egg-info/
 dist/
 build/
 .env
-
-# PDFs
-*.pdf
-
-# Other projects / sensitive files
-RCE/
-backup/
-ReadPDF/
-Resume/
 
 # Claude Code internals
 **/.claude/

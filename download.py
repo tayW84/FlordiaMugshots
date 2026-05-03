@@ -8,22 +8,23 @@ Examples:
     python download.py --county orange --mode all --workers 4
 """
 import argparse
-from config import BLANK_SLATE_DIR, NEW_IMAGES_DIR
+from config import IMAGES_DIR, NEW_IMAGES_DIR
 
 COUNTIES = ('jefferson', 'midlands', 'orange', 'all')
 MODES = ('recent', 'all')
 
 
 def _download_county(county, output_dir, mode, workers):
+    county_dir = os.path.join(output_dir, county.capitalize()) if mode == 'all' else output_dir
     if county == 'jefferson':
         from scrapers.jefferson import download
-        download(output_dir, mode=mode)
+        download(county_dir, mode=mode)
     elif county == 'midlands':
         from scrapers.midlands import download
-        download(output_dir, mode=mode)
+        download(county_dir, mode=mode)
     elif county == 'orange':
         from scrapers.orange_county import download
-        download(output_dir, mode=mode, workers=workers)
+        download(county_dir, mode=mode, workers=workers)
 
 
 def main():
@@ -38,7 +39,7 @@ def main():
                         help='Parallel browser instances for Orange County (default: 3)')
     args = parser.parse_args()
 
-    output_dir = args.output or (NEW_IMAGES_DIR if args.mode == 'recent' else BLANK_SLATE_DIR)
+    output_dir = args.output or (NEW_IMAGES_DIR if args.mode == 'recent' else IMAGES_DIR)
 
     targets = ['jefferson', 'midlands', 'orange'] if args.county == 'all' else [args.county]
 
