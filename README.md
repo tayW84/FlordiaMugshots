@@ -28,7 +28,7 @@ py -3.11 -m venv venv        # use Python 3.11 explicitly
 venv\Scripts\activate        # Windows
 # source venv/bin/activate   # Mac/Linux
 
-pip install tensorflow scikit-learn opencv-python pymupdf selenium webdriver-manager requests matplotlib Pillow
+pip install tensorflow scikit-learn opencv-python pymupdf selenium webdriver-manager requests matplotlib Pillow beautifulsoup4
 ```
 
 ---
