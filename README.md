@@ -17,14 +17,14 @@ The last evaluation run achieved **98.08% accuracy** on 1,614 test images across
 
 ## Prerequisites
 
-- Python 3.9+
+- Python **3.9–3.12** (TensorFlow does not support Python 3.13+ yet — if your system Python is newer, install 3.11 separately and use `py -3.11` below)
 - Google Chrome (for Selenium-based scrapers)
 - pip
 
 ### Install dependencies
 
 ```bash
-python -m venv venv
+py -3.11 -m venv venv        # use Python 3.11 explicitly
 venv\Scripts\activate        # Windows
 # source venv/bin/activate   # Mac/Linux
 
