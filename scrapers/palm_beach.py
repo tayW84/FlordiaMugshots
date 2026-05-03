@@ -188,7 +188,7 @@ def _save_image(session, img_url, output_dir, counter):
 # Main entry point
 # ---------------------------------------------------------------------------
 
-def download(output_dir="PalmBeach", days=30):
+def download(output_dir=os.path.join("Images", "PalmBeach"), days=30):
     """Open a browser, let the user solve hCaptcha, then download all mugshots."""
     os.makedirs(output_dir, exist_ok=True)
 
@@ -261,4 +261,4 @@ def download(output_dir="PalmBeach", days=30):
 
 
 if __name__ == "__main__":
-    download(output_dir="PalmBeach", days=30)
+    download(output_dir=os.path.join("Images", "PalmBeach"), days=30)

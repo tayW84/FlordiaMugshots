@@ -35,24 +35,23 @@ pip install tensorflow scikit-learn opencv-python pymupdf selenium webdriver-man
 
 ## Step 1 — Configure Paths
 
-Open [config.py](config.py) and verify the paths match your setup. Key settings:
+Open [config.py](config.py) and verify the settings match your setup:
 
 | Variable | Default | Description |
 |---|---|---|
-| `CLASS_NAMES` | `['Boward', 'Jefferson', ...]` | County names (must match folder names) |
+| `CLASS_NAMES` | `['Boward', 'Jefferson', ...]` | County names — must match subfolder names inside `Images/` |
 | `CONFIDENCE_THRESHOLD` | `0.60` | Predictions below this are marked "uncategorized" |
-| `MODEL_PATH` | `mugshot_classifier4.keras` | Where the trained model is saved/loaded |
+| `MODEL_PATH` | `mugshot_classifier.keras` | Where the trained model is saved and loaded from |
+| `IMAGES_DIR` | `Images/` | Root folder for all downloaded training images |
+| `NEW_IMAGES_DIR` | `TestData/` | Where recent bookings are downloaded for evaluation |
 | `TRAINING_DIR` | `TrainingData/` | Created by `prepare_data.py` |
 | `TEST_DIR` | `TestData/` | Created by `prepare_data.py` |
-
-> **Note:** After the recent repo restructure, update `DATA_ROOT` in `config.py` to point to the project root:
-> ```python
-> DATA_ROOT = PROJECT_ROOT
-> ```
 
 ---
 
 ## Step 2 — Collect Images
+
+All downloaded images land in `Images/<County>/` and are ignored by git (images are not stored in this repo — each user builds their own dataset).
 
 There are two collection methods depending on the county.
 
@@ -61,123 +60,159 @@ There are two collection methods depending on the county.
 Use `download.py` to scrape images directly from county websites.
 
 ```bash
-# Download recent bookings (new arrivals only)
-python download.py --county jefferson --mode recent
-python download.py --county midlands --mode recent
-python download.py --county orange --mode recent
-
-# Download all historical bookings
+# Download all historical bookings (use this to build your training dataset)
+python download.py --county jefferson --mode all
+python download.py --county midlands --mode all
 python download.py --county orange --mode all --workers 4
 
 # Download all three counties at once
-python download.py --county all --mode recent
+python download.py --county all --mode all
+
+# Download recent bookings only (new arrivals — goes to TestData/ for evaluation)
+python download.py --county jefferson --mode recent
 ```
 
 | Flag | Options | Default | Description |
 |---|---|---|---|
 | `--county` | `jefferson`, `midlands`, `orange`, `all` | required | Which county to scrape |
-| `--mode` | `recent`, `all` | `recent` | `recent` = new bookings only; `all` = full history |
-| `--output` | any path | auto | Override output directory |
+| `--mode` | `recent`, `all` | `recent` | `all` = full history → `Images/<County>/`; `recent` = new bookings → `TestData/` |
+| `--output` | any path | auto | Override the output directory |
 | `--workers` | integer | `3` | Parallel Chrome instances (Orange County only) |
-
-Images land in `newImages/` (recent mode) or `BlankSlate/` (all mode) by default.
 
 ---
 
 ### Method B — Facebook Scraper (Boward, Polk, Seminole, PalmBeach)
 
-These counties post mugshots to Facebook. Use the browser console script to harvest image URLs, then download them.
+These counties post mugshots to Facebook. The process uses a browser console script to collect image URLs, which are then downloaded in bulk.
 
-**Step 1 — Collect URLs from Facebook**
+#### Step B1 — Open the county's Facebook mugshot page in Chrome
 
-1. Open the county's Facebook mugshot page in Chrome
-2. Open DevTools → Console (`F12`)
-3. Paste the contents of [scrapeFacebook.js](scrapeFacebook.js) and press Enter
-4. Scroll down slowly through the page — the script collects image URLs every 2 seconds
-5. When done, type `stopCollect()` in the console — URLs are copied to your clipboard
-6. Paste the clipboard into a text file named after the county, e.g. `Polk.txt` or `Boward.txt`
+Navigate to the county jail's Facebook page or album where mugshots are posted.
 
-**Step 2 — Download the images**
+#### Step B2 — Open the browser console
+
+Press `F12` and click the **Console** tab.
+
+#### Step B3 — Paste and run the script
+
+Open [scrapeFacebook.js](scrapeFacebook.js), copy the entire contents, paste into the console, and press Enter. You'll see:
+
+```
+Collector started! Scroll down slowly. Type 'stopCollect()' to stop and see the final list.
+```
+
+#### Step B4 — Scroll slowly through the page
+
+Scroll down at a slow, steady pace. Every 2 seconds the script scans for new images and logs a running total:
+
+```
+Total unique images collected: 24
+Total unique images collected: 31
+...
+```
+
+Give each batch of images time to load before scrolling further. Go all the way to the bottom of the album or post.
+
+#### Step B5 — Stop the collector
+
+When done scrolling, type in the console:
+
+```
+stopCollect()
+```
+
+This stops the scan, prints the final count, and **automatically copies all URLs to your clipboard**.
+
+#### Step B6 — Save the URLs to a text file
+
+Paste your clipboard into a plain text file named after the county and save it in the project root:
+
+- `Polk.txt`
+- `Boward.txt`
+- `Seminole.txt`
+- `PalmBeach.txt`
+
+One URL per line.
+
+#### Step B7 — Review and clean the list (important)
+
+The script collects **all** Facebook CDN images on the page — not just mugshots. The top of the list will typically contain non-mugshot images such as:
+
+- The page's cover photo or header banner
+- Profile pictures
+- Album thumbnails or preview images
+
+Open the `.txt` file and **delete the first 5 or so URLs**, then spot-check the rest. You can paste any URL directly into your browser to preview it. Remove anything that isn't a plain mugshot headshot.
+
+#### Step B8 — Run the downloader
 
 ```bash
-python scrapers/polk.py        # reads Polk.txt, saves to Polk/
-python scrapers/boward.py      # reads Boward.txt, saves to Boward/
-python scrapers/Seminole.py    # reads Seminole.txt, saves to Seminole/
-python scrapers/palm_beach.py  # reads PalmBeach.txt, saves to PalmBeach/
+python scrapers/polk.py        # reads Polk.txt,      saves to Images/Polk/
+python scrapers/boward.py      # reads Boward.txt,    saves to Images/Boward/
+python scrapers/Seminole.py    # reads Seminole.txt,  saves to Images/Seminole/
+python scrapers/palm_beach.py  # automated with captcha, saves to Images/PalmBeach/
 ```
 
 ---
 
-## Step 3 — Organize Images into County Folders
+## Step 3 — Prepare Training and Test Data
 
-If images were downloaded to `BlankSlate/` (bulk mode) and have county-prefixed filenames, `label.py` will sort them automatically:
-
-```bash
-python label.py
-```
-
-This reads filenames like `ORANGE_...`, `JEFFERSON_...`, `MIDLANDS_...` and moves each image into its matching county subfolder.
-
-For other counties (Boward, Polk, etc.), the scrapers in Method B already place images directly into named folders.
-
-At the end of this step you should have populated county folders at the project root:
-
-```
-FlordiaMugshots/
-├── Boward/
-├── Jefferson/
-├── Midlands/
-├── Orange/
-├── Polk/
-└── Seminole/
-```
-
----
-
-## Step 4 — Prepare Training and Test Data
-
-Split each county's images 80% training / 20% test:
+Once you have images in `Images/<County>/` for each county, split them 80% training / 20% test:
 
 ```bash
 python prepare_data.py
 ```
 
 This creates:
-- `TrainingData/<County>/` — 80% of each county's images
-- `TestData/` — 20% of each county's images (flat, mixed)
+- `TrainingData/<County>/` — 80% of each county's images, organized by class
+- `TestData/` — 20% of each county's images, flat mixed folder
 
 Re-running is safe — already-copied files are skipped and the split never changes (fixed random seed).
 
+After this step your folder structure should look like:
+
+```
+Images/
+├── Boward/       ← source images (all downloads land here)
+├── Jefferson/
+├── Midlands/
+├── Orange/
+├── Polk/
+└── Seminole/
+TrainingData/
+├── Boward/       ← 80% split, used for training
+├── Jefferson/
+└── ...
+TestData/         ← 20% split + recent downloads, used for evaluation
+```
+
 ---
 
-## Step 5 — Train the Model
+## Step 4 — Train the Model
 
 ```bash
 python ml/train.py
 ```
 
-This trains a CNN with early stopping and learning rate reduction. Training runs up to 16 epochs and saves the best model to the path set in `config.py` (`MODEL_PATH`).
+This trains a CNN with early stopping and learning rate reduction. Training runs up to 16 epochs and saves the best model to `MODEL_PATH` set in `config.py`.
 
 A `training_history.png` chart (accuracy and loss curves) is saved alongside the model file.
 
 ---
 
-## Step 6 — Evaluate the Model
+## Step 5 — Evaluate the Model
 
 ```bash
 # Evaluate on the held-out test set
 python ml/evaluate.py --folder TestData
 
-# Evaluate on newly downloaded images
-python ml/evaluate.py --folder newImages
-
-# Use a different model or threshold
+# Use a different model or confidence threshold
 python ml/evaluate.py --folder TestData --model my_model.keras --threshold 0.75
 ```
 
 | Flag | Default | Description |
 |---|---|---|
-| `--folder` | `newImages/` | Folder of images to classify |
+| `--folder` | `TestData/` | Folder of images to classify |
 | `--model` | `MODEL_PATH` from config | Path to `.keras` or `.h5` model file |
 | `--threshold` | `0.60` | Confidence cutoff; below this → "uncategorized" |
 
@@ -188,12 +223,12 @@ python ml/evaluate.py --folder TestData --model my_model.keras --threshold 0.75
 
 ---
 
-## Step 7 (Optional) — Generate Saliency Maps Manually
+## Step 6 (Optional) — Generate Saliency Maps Manually
 
 Grad-CAM maps are generated automatically during evaluation. To run them standalone for a specific class:
 
 ```bash
-python ml/saliency.py --class-name orange --image-dir Orange/ --output-dir saliency_maps/
+python ml/saliency.py --class-name orange --image-dir Images/Orange/ --output-dir saliency_maps/
 ```
 
 ---
@@ -204,9 +239,13 @@ python ml/saliency.py --class-name orange --image-dir Orange/ --output-dir salie
 FlordiaMugshots/
 ├── config.py              # Paths and model settings
 ├── download.py            # CLI scraper for Jefferson, Midlands, Orange
-├── label.py               # Sorts BlankSlate images into county folders
-├── prepare_data.py        # 80/20 train/test split
+├── label.py               # Sorts flat image dumps into Images/<County>/ subfolders
+├── prepare_data.py        # 80/20 train/test split from Images/ into TrainingData/ and TestData/
 ├── scrapeFacebook.js      # Browser console script for Facebook-hosted mugshots
+├── Images/                # All downloaded training images (gitignored)
+│   ├── Boward/
+│   ├── Jefferson/
+│   └── ...
 ├── ml/
 │   ├── train.py           # Model training
 │   ├── evaluate.py        # Evaluation, reports, wrong-prediction logging
@@ -215,11 +254,11 @@ FlordiaMugshots/
     ├── jefferson.py
     ├── midlands.py
     ├── orange_county.py
-    ├── polk.py
-    ├── boward.py
-    ├── Seminole.py
-    ├── palm_beach.py
-    └── manifest.py        # Download manifest (tracks already-downloaded images)
+    ├── polk.py            # Reads Polk.txt, saves to Images/Polk/
+    ├── boward.py          # Reads Boward.txt, saves to Images/Boward/
+    ├── Seminole.py        # Reads Seminole.txt, saves to Images/Seminole/
+    ├── palm_beach.py      # Selenium scraper with captcha, saves to Images/PalmBeach/
+    └── manifest.py        # Tracks already-downloaded images to avoid duplicates
 ```
 
 ---
@@ -227,13 +266,16 @@ FlordiaMugshots/
 ## Full Workflow Summary
 
 ```
-collect images          download.py / scrapeFacebook.js + county scraper
-       ↓
-organize into folders   label.py  (or scrapers do this automatically)
-       ↓
-split train/test        prepare_data.py
-       ↓
-train model             ml/train.py
-       ↓
-evaluate & report       ml/evaluate.py
+collect images (--mode all)    download.py  /  scrapeFacebook.js + county scraper
+         ↓
+all images land in             Images/<County>/
+         ↓
+split train/test               prepare_data.py  →  TrainingData/  +  TestData/
+         ↓
+train model                    ml/train.py
+         ↓
+evaluate & report              ml/evaluate.py --folder TestData
+         ↓
+evaluate new bookings          download.py --mode recent  →  TestData/
+                               ml/evaluate.py --folder TestData
 ```

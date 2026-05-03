@@ -18,13 +18,15 @@ IMAGE_EXTS  = {'.jpg', '.jpeg', '.png'}
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
+IMAGES_ROOT = os.path.join(PROJECT_ROOT, 'Images')
+
 SOURCES = {
-    'Orange':    os.path.join(PROJECT_ROOT, 'Orange'),
-    'Jefferson': os.path.join(PROJECT_ROOT, 'Jefferson'),
-    'Midlands':  os.path.join(PROJECT_ROOT, 'Midlands'),
-    'Polk':      os.path.join(PROJECT_ROOT, 'Polk'),
-    'Boward':    os.path.join(PROJECT_ROOT, 'Boward'),
-    'Seminole':  os.path.join(PROJECT_ROOT, 'Seminole'),
+    'Orange':    os.path.join(IMAGES_ROOT, 'Orange'),
+    'Jefferson': os.path.join(IMAGES_ROOT, 'Jefferson'),
+    'Midlands':  os.path.join(IMAGES_ROOT, 'Midlands'),
+    'Polk':      os.path.join(IMAGES_ROOT, 'Polk'),
+    'Boward':    os.path.join(IMAGES_ROOT, 'Boward'),
+    'Seminole':  os.path.join(IMAGES_ROOT, 'Seminole'),
 }
 
 TRAIN_DIR = os.path.join(PROJECT_ROOT, 'TrainingData')

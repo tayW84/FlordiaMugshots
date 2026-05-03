@@ -4,12 +4,12 @@ import os
 with open('Polk.txt', 'r') as f:
     urls = f.read().splitlines()
 
-os.makedirs('Polk', exist_ok=True)
+os.makedirs(os.path.join('Images', 'Polk'), exist_ok=True)
 
 for i, url in enumerate(urls):
     try:
         img_data = requests.get(url).content
-        with open(f"Polk/image_{i}.jpg", 'wb') as f:
+        with open(os.path.join('Images', 'Polk', f"image_{i}.jpg"), 'wb') as f:
             f.write(img_data)
         if i % 10 == 0:
             print(f"Downloaded {i} images...")
