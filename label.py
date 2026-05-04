@@ -1,12 +1,16 @@
-"""Sort images from BlankSlate into county subfolders based on filename prefix."""
+"""Sort images into county subfolders inside Images/ based on filename prefix."""
 import os
 import shutil
-from config import IMAGES_DIR, DATA_ROOT
+from config import IMAGES_DIR
 
 PREFIX_TO_FOLDER = {
-    "ORANGE_":    os.path.join(DATA_ROOT, "ORANGE"),
-    "JEFFERSON_": os.path.join(DATA_ROOT, "JEFFERSON"),
-    "MIDLANDS_":  os.path.join(DATA_ROOT, "MIDLANDS"),
+    "ORANGE_":    os.path.join(IMAGES_DIR, "Orange"),
+    "JEFFERSON_": os.path.join(IMAGES_DIR, "Jefferson"),
+    "MIDLANDS_":  os.path.join(IMAGES_DIR, "Midlands"),
+    "BOWARD_":    os.path.join(IMAGES_DIR, "Boward"),
+    "POLK_":      os.path.join(IMAGES_DIR, "Polk"),
+    "SEMINOLE_":  os.path.join(IMAGES_DIR, "Seminole"),
+    "PALMBEACH_": os.path.join(IMAGES_DIR, "PalmBeach"),
 }
 
 
