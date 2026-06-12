@@ -81,7 +81,7 @@ python download.py --county jefferson --mode recent
 
 ---
 
-### Method B — Facebook Scraper (Boward, Polk, Seminole, PalmBeach)
+### Method B — Facebook Image Obtainer (Boward, Polk, Seminole, PalmBeach)
 
 These counties post mugshots to Facebook. The process uses a browser console script to collect image URLs, which are then downloaded in bulk.
 
